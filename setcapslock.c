@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <string.h>
+
+#include <strings.h>
 
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
@@ -31,10 +32,10 @@ int main(int argc, char** argv)
 
     int on = 1;
     if (argc == 2) {
-        if (strcmp(argv[1], "on") == 0) {
+        if (strcasecmp(argv[1], "on") == 0) {
             on = 1;
         }
-        else if (strcmp(argv[1], "off") == 0) {
+        else if (strcasecmp(argv[1], "off") == 0) {
             on = 0;
         }
         else {
