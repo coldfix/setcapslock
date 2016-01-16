@@ -19,7 +19,7 @@ void setcaps(int on)
 void usage(const char* program_name)
 {
     printf("Usage: %s [on|off]\n\n", program_name);
-    printf("Use '%s' to disable your caps key");
+    printf("Using '%s' without arguments defaults to caps off.", program_name);
 }
 
 
@@ -30,7 +30,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    int on = 1;
+    int on = 0;
     if (argc == 2) {
         if (strcasecmp(argv[1], "on") == 0) {
             on = 1;
