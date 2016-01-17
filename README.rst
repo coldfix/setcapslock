@@ -1,7 +1,7 @@
 setcapslock
 ===========
 
-Small utility to set the caps lock state.
+Small utility to set the caps lock state in an X session.
 
 The ``setcaps`` function is stolen from here: http://askubuntu.com/a/80301
 
@@ -33,7 +33,7 @@ I came by the following suggestions for alternative solutions (none of which
 ended up working for me):
 
 * ``setleds -caps``
-  (setleds complains and exits without doing anything)
+  (setleds complains about not being in a virtual terminal)
 
 * ``xkbset nullify -lock``
   (I don't have xkbset in repositories, so cannot verify)
