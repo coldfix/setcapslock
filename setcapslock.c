@@ -10,9 +10,9 @@
 
 void setcaps(int on)
 {
-   Display* display = XOpenDisplay(NULL);
-   XkbLockModifiers(display, XkbUseCoreKbd, CAPSLOCK, on ? CAPSLOCK : 0);
-   XCloseDisplay(display);
+    Display* display = XOpenDisplay(NULL);
+    XkbLockModifiers(display, XkbUseCoreKbd, CAPSLOCK, on ? CAPSLOCK : 0);
+    XCloseDisplay(display);
 }
 
 
@@ -30,6 +30,7 @@ void usage(const char* program_name)
 {
     printf("Usage: %s [on|off|toggle]\n\n", program_name);
 }
+
 
 
 int main(int argc, char** argv)
