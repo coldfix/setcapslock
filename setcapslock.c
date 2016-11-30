@@ -28,7 +28,7 @@ int getcaps()
 
 void usage(const char* program_name)
 {
-    printf("Usage: %s [on|off|toggle]\n\n", program_name);
+    printf("Usage: %s [on|off|toggle|get]\n\n", program_name);
 }
 
 
@@ -45,6 +45,15 @@ int main(int argc, char** argv)
         }
         else if (strcasecmp(argv[1], "toggle") == 0) {
             on = !getcaps();
+        }
+        else if (strcasecmp(argv[1], "get") == 0) {
+            if (getcaps()) {
+                printf("on\n");
+            }
+            else {
+                printf("off\n");
+            }
+            return 0;
         }
     }
 
