@@ -16,9 +16,19 @@ void setcaps(int on)
 }
 
 
+int getcaps()
+{
+    XkbStateRec xkbState;
+    Display* display = XOpenDisplay(NULL);
+    XkbGetState(display, XkbUseCoreKbd, &xkbState);
+    XCloseDisplay(display);
+    return xkbState.locked_mods & CAPSLOCK;
+}
+
+
 void usage(const char* program_name)
 {
-    printf("Usage: %s [on|off]\n\n", program_name);
+    printf("Usage: %s [on|off|toggle]\n\n", program_name);
 }
 
 
@@ -31,6 +41,9 @@ int main(int argc, char** argv)
         }
         else if (strcasecmp(argv[1], "off") == 0) {
             on = 0;
+        }
+        else if (strcasecmp(argv[1], "toggle") == 0) {
+            on = !getcaps();
         }
     }
 
