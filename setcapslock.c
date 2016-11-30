@@ -5,24 +5,22 @@
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
 
-#define CAPSLOCK 2
 
-
-void setcaps(int on)
+void set_modifier(int mod, int on)
 {
     Display* display = XOpenDisplay(NULL);
-    XkbLockModifiers(display, XkbUseCoreKbd, CAPSLOCK, on ? CAPSLOCK : 0);
+    XkbLockModifiers(display, XkbUseCoreKbd, mod, on ? mod : 0);
     XCloseDisplay(display);
 }
 
 
-int getcaps()
+int get_modifier(int mod)
 {
     XkbStateRec xkbState;
     Display* display = XOpenDisplay(NULL);
     XkbGetState(display, XkbUseCoreKbd, &xkbState);
     XCloseDisplay(display);
-    return xkbState.locked_mods & CAPSLOCK;
+    return xkbState.locked_mods & mod;
 }
 
 
@@ -35,6 +33,7 @@ void usage(const char* program_name)
 
 int main(int argc, char** argv)
 {
+    int mod = LockMask;     // see <X11/X.h>
     int on = -1;
     if (argc == 2) {
         if (strcasecmp(argv[1], "on") == 0) {
@@ -44,10 +43,10 @@ int main(int argc, char** argv)
             on = 0;
         }
         else if (strcasecmp(argv[1], "toggle") == 0) {
-            on = !getcaps();
+            on = !get_modifier(mod);
         }
         else if (strcasecmp(argv[1], "get") == 0) {
-            if (getcaps()) {
+            if (get_modifier(mod)) {
                 printf("on\n");
             }
             else {
@@ -62,6 +61,6 @@ int main(int argc, char** argv)
         return 1;
     }
 
-    setcaps(on);
+    set_modifier(mod, on);
     return 0;
 }
