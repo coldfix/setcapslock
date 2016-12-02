@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include <strings.h>
 
@@ -32,39 +33,58 @@ void usage(const char* program_name)
 
 int main(int argc, char** argv)
 {
+    enum {
+        SHOW_USAGE,
+        SETCAPSLOCK_ON,
+        SETCAPSLOCK_OFF,
+        SETCAPSLOCK_TOGGLE,
+        GETCAPSLOCK
+    };
+
     int mod = LockMask;     // see <X11/X.h>
-    int on = -1;
+    int action = SHOW_USAGE;
+    char* cmd;
 
     if (argc == 3) {
         mod = 1<<atoi(argv[2]);
     }
 
     if (argc >= 2) {
-        if (strcasecmp(argv[1], "on") == 0) {
-            on = 1;
+        cmd = argv[1];
+        if (strcasecmp(cmd, "on") == 0) {
+            action = SETCAPSLOCK_ON;
         }
-        else if (strcasecmp(argv[1], "off") == 0) {
-            on = 0;
+        else if (strcasecmp(cmd, "off") == 0) {
+            action = SETCAPSLOCK_OFF;
         }
-        else if (strcasecmp(argv[1], "toggle") == 0) {
-            on = !get_modifier(mod);
+        else if (strcasecmp(cmd, "toggle") == 0) {
+            action = GETCAPSLOCK;
         }
-        else if (strcasecmp(argv[1], "get") == 0) {
-            if (get_modifier(mod)) {
-                printf("on\n");
-            }
-            else {
-                printf("off\n");
-            }
-            return 0;
+        else if (strcasecmp(cmd, "get") == 0) {
+            action = GETCAPSLOCK;
         }
     }
 
-    if (on == -1) {
+    if (action == SHOW_USAGE) {
         usage(argv[0]);
         return 1;
     }
 
-    set_modifier(mod, on);
+    if (action == SETCAPSLOCK_ON) {
+        set_modifier(mod, 1);
+    }
+
+    if (action == SETCAPSLOCK_OFF) {
+        set_modifier(mod, 0);
+    }
+
+    if (action == SETCAPSLOCK_TOGGLE) {
+        set_modifier(mod, !get_modifier(mod));
+    }
+
+    if (action == GETCAPSLOCK) {
+        printf("%s\n", get_modifier(mod) ? "on" : "off");
+    }
+
     return 0;
 }
