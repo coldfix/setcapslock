@@ -26,16 +26,20 @@ int get_modifier(int mod)
 
 void usage(const char* program_name)
 {
-    printf("Usage: %s [on|off|toggle|get]\n\n", program_name);
+    printf("Usage: %s (on|off|toggle|get) [MOD]\n\n", program_name);
 }
-
 
 
 int main(int argc, char** argv)
 {
     int mod = LockMask;     // see <X11/X.h>
     int on = -1;
-    if (argc == 2) {
+
+    if (argc == 3) {
+        mod = 1<<atoi(argv[2]);
+    }
+
+    if (argc >= 2) {
         if (strcasecmp(argv[1], "on") == 0) {
             on = 1;
         }
