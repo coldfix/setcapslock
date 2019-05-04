@@ -58,7 +58,7 @@ int main(int argc, char** argv)
             action = SETCAPSLOCK_OFF;
         }
         else if (strcasecmp(cmd, "toggle") == 0) {
-            action = GETCAPSLOCK;
+            action = SETCAPSLOCK_TOGGLE;
         }
         else if (strcasecmp(cmd, "get") == 0) {
             action = GETCAPSLOCK;
