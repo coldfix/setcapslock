@@ -17,6 +17,16 @@ Turn caps lock off::
 
     setcapslock off
 
+Toggle caps lock::
+
+    setcapslock toggle
+
+Show current state::
+
+    setcapslock get
+
+And best of all: these commands are case-insensitive, of course!
+
 
 Install
 ~~~~~~~
